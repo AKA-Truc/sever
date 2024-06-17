@@ -9,6 +9,14 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'OrderID',
                 as: 'Order'
             });
+            Invoice.hasMany(models.InvoiceDetail, { 
+                as: 'InvoiceDetail', 
+                foreignKey: 'InvoiceID' 
+            });
+            Invoice.belongsTo(models.Customer, { 
+                as: 'Customer', 
+                foreignKey: 'CustomerID' 
+            });
         }
     }
     Invoice.init({
@@ -17,6 +25,22 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
+        },
+        OrderID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Order',
+                key: 'OrderID'
+            }
+        },
+        CustomerID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Customer',
+                key: 'CustomerID'
+            }
         },
         InvoiceDate: DataTypes.DATE,
         Totalcost: DataTypes.INTEGER,

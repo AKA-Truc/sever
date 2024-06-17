@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Định nghĩa mối quan hệ với Order và Product
       OrderDetail.belongsTo(models.Order, { foreignKey: 'OrderID', as: 'Order' });
-      OrderDetail.hasOne(models.Product, { foreignKey: 'ProductID', as: 'Product' });
+      OrderDetail.belongsTo(models.Product, { foreignKey: 'ProductID', as: 'Product' });
     }
   }
 

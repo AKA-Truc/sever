@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "listCustomer": [
+    {
+      "CustomerID": 1,
+      "Name": "Lalisa Manobal",
+      "Phone": "0987654321",
+      "Gender": "Female"
+    },
+    {
+      "CustomerID": 2,
+      "Name": "John Doe",
+      "Phone": "1234567890",
+      "Gender": "Male"
+    },
+    {
+      "CustomerID": 3,
+      "Name": "Nguyễn Lê Mai Anh",
+      "Phone": "09876543211",
+      "Gender": "Female"
+    },
+    {
+      "CustomerID": 5,
+      "Name": "Nguyễn Lê Bảo Anh",
+      "Phone": "09876543212",
+      "Gender": "Female"
+    },
+    {
+      "CustomerID": 6,
+      "Name": "Phạm Trúc Linh",
+      "Phone": "123123123",
+      "Gender": "Female"
+    },
+    {
+      "CustomerID": 7,
+      "Name": "Nguyễn Văn An",
+      "Phone": "456456456",
+      "Gender": "Male"
+    }
+  ]
+}

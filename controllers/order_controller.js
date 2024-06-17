@@ -7,9 +7,9 @@ const asyncHandler = require('express-async-handler');
 
 const createOrder = asyncHandler(async (req, res) => {
     const { CustomerID, OrderDate, Status, orderDetails } = req.body;
-  
+    
     // Kiểm tra xem tất cả các dữ liệu cần thiết có được cung cấp hay không
-    if (!CustomerID || !OrderDate || !orderDetails || !Array.isArray(orderDetails)) {
+    if (!CustomerID || !OrderDate || !Status || !Array.isArray(orderDetails)) {
       return res.status(400).json({ error: 'Thiếu các trường bắt buộc' });
     }
   

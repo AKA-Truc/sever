@@ -1,0 +1,80 @@
+{
+  "success": true,
+  "productData": [
+    {
+      "ProductID": 1,
+      "CategoryID": 3,
+      "Name": "Creed Aventus Eau de Parfum",
+      "Brand": "Creed",
+      "Description": "Aventus celebrates strength, vision and success, inspired by the dramatic life of war, peace and romance lived by Emperor Napoleon. The bottle is emblazoned with a silver emblem of a horse and rider.",
+      "Volume": 75,
+      "Price": 250,
+      "image": "https://example.com/creed-aventus.jpg",
+      "Inventory": 12,
+      "Category": {
+        "CategoryID": 3,
+        "Name": "Nước hoa unisex"
+      }
+    },
+    {
+      "ProductID": 2,
+      "CategoryID": 2,
+      "Name": "Chanel No. 5",
+      "Brand": "Chanel",
+      "Description": "A bouquet of abstract flowers with an indefinable femininity.",
+      "Volume": 100,
+      "Price": 105,
+      "image": "https://example.com/chanel-no5.jpg",
+      "Inventory": 11,
+      "Category": {
+        "CategoryID": 2,
+        "Name": "Nước hoa nữ"
+      }
+    },
+    {
+      "ProductID": 3,
+      "CategoryID": 3,
+      "Name": "CK One",
+      "Brand": "Calvin Klein",
+      "Description": "This fragrance carries fresh notes of green tea while embracing the sweetness of amber and musk.",
+      "Volume": 200,
+      "Price": 70,
+      "image": "https://example.com/ck-one.jpg",
+      "Inventory": 24,
+      "Category": {
+        "CategoryID": 3,
+        "Name": "Nước hoa unisex"
+      }
+    },
+    {
+      "ProductID": 4,
+      "CategoryID": 1,
+      "Name": "Dior Sauvage Eau de Toilette",
+      "Brand": "Dior",
+      "Description": "Inspired by wide-open spaces, Sauvage is an ozone-blue sky sprawled above a rocky landscape, white-hot beneath the desert sun.",
+      "Volume": 100,
+      "Price": 95,
+      "image": "https://example.com/dior-sauvage.jpg",
+      "Inventory": 26,
+      "Category": {
+        "CategoryID": 1,
+        "Name": "Nước hoa nam"
+      }
+    },
+    {
+      "ProductID": 8,
+      "CategoryID": 3,
+      "Name": "Tom Ford Black Orchid Eau de Parfum",
+      "Brand": "Tom Ford",
+      "Description": "A luxurious and sensual fragrance of rich, dark accords and an alluring potion of black orchids and spice.",
+      "Volume": 50,
+      "Price": 120,
+      "image": "https://example.com/tom-ford-black-orchid.jpg",
+      "Inventory": 23,
+      "Category": {
+        "CategoryID": 3,
+        "Name": "Nước hoa unisex"
+      }
+    }
+  ]
+}

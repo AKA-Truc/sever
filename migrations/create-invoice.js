@@ -16,6 +16,14 @@ module.exports = {
               model: 'Orders', 
               key: 'OrderID'
             }
+          }, 
+          CustomerID: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'Customers',
+                key: 'CustomerID'
+            }
           },
           InvoiceDate: {
             type: Sequelize.DATE,

@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "listCategory": [
+    {
+      "CategoryID": 1,
+      "Name": "Nước hoa nam"
+    },
+    {
+      "CategoryID": 2,
+      "Name": "Nước hoa nữ"
+    },
+    {
+      "CategoryID": 3,
+      "Name": "Nước hoa unisex"
+    }
+  ]
+}

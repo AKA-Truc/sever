@@ -1,0 +1,192 @@
+[
+  {
+    "OrderID": 1,
+    "CustomerID": 1,
+    "OrderDate": "2023-01-18T15:45:00.000Z",
+    "Status": "Đã xác nhận",
+    "OrderDetail": [
+      {
+        "OrderID": 1,
+        "ProductID": 1,
+        "Quantity": 2,
+        "Product": {
+          "ProductID": 1,
+          "CategoryID": 3,
+          "Name": "Creed Aventus Eau de Parfum",
+          "Brand": "Creed",
+          "Description": "Aventus celebrates strength, vision and success, inspired by the dramatic life of war, peace and romance lived by Emperor Napoleon. The bottle is emblazoned with a silver emblem of a horse and rider.",
+          "Volume": 75,
+          "Price": 250,
+          "image": "https://example.com/creed-aventus.jpg",
+          "Inventory": 12
+        }
+      },
+      {
+        "OrderID": 1,
+        "ProductID": 2,
+        "Quantity": 2,
+        "Product": {
+          "ProductID": 1,
+          "CategoryID": 3,
+          "Name": "Creed Aventus Eau de Parfum",
+          "Brand": "Creed",
+          "Description": "Aventus celebrates strength, vision and success, inspired by the dramatic life of war, peace and romance lived by Emperor Napoleon. The bottle is emblazoned with a silver emblem of a horse and rider.",
+          "Volume": 75,
+          "Price": 250,
+          "image": "https://example.com/creed-aventus.jpg",
+          "Inventory": 12
+        }
+      },
+      {
+        "OrderID": 1,
+        "ProductID": 4,
+        "Quantity": 1,
+        "Product": {
+          "ProductID": 1,
+          "CategoryID": 3,
+          "Name": "Creed Aventus Eau de Parfum",
+          "Brand": "Creed",
+          "Description": "Aventus celebrates strength, vision and success, inspired by the dramatic life of war, peace and romance lived by Emperor Napoleon. The bottle is emblazoned with a silver emblem of a horse and rider.",
+          "Volume": 75,
+          "Price": 250,
+          "image": "https://example.com/creed-aventus.jpg",
+          "Inventory": 12
+        }
+      }
+    ],
+    "Customer": {
+      "CustomerID": 1,
+      "Name": "Lalisa Manobal",
+      "Phone": "0987654321",
+      "Gender": "Female"
+    }
+  },
+  {
+    "OrderID": 2,
+    "CustomerID": 2,
+    "OrderDate": "2023-01-23T15:45:00.000Z",
+    "Status": "Đã xác nhận",
+    "OrderDetail": [
+      {
+        "OrderID": 2,
+        "ProductID": 2,
+        "Quantity": 2,
+        "Product": {
+          "ProductID": 2,
+          "CategoryID": 2,
+          "Name": "Chanel No. 5",
+          "Brand": "Chanel",
+          "Description": "A bouquet of abstract flowers with an indefinable femininity.",
+          "Volume": 100,
+          "Price": 105,
+          "image": "https://example.com/chanel-no5.jpg",
+          "Inventory": 11
+        }
+      },
+      {
+        "OrderID": 2,
+        "ProductID": 3,
+        "Quantity": 1,
+        "Product": {
+          "ProductID": 2,
+          "CategoryID": 2,
+          "Name": "Chanel No. 5",
+          "Brand": "Chanel",
+          "Description": "A bouquet of abstract flowers with an indefinable femininity.",
+          "Volume": 100,
+          "Price": 105,
+          "image": "https://example.com/chanel-no5.jpg",
+          "Inventory": 11
+        }
+      }
+    ],
+    "Customer": {
+      "CustomerID": 2,
+      "Name": "John Doe",
+      "Phone": "1234567890",
+      "Gender": "Male"
+    }
+  },
+  {
+    "OrderID": 5,
+    "CustomerID": 5,
+    "OrderDate": "2023-02-01T13:45:00.000Z",
+    "Status": "Đã xác nhận",
+    "OrderDetail": [
+      {
+        "OrderID": 5,
+        "ProductID": 1,
+        "Quantity": 1,
+        "Product": {
+          "ProductID": 5,
+          "CategoryID": 2,
+          "Name": "Chanel No. 5 Eau de Parfum",
+          "Brand": "Chanel",
+          "Description": "An abstract, mysterious fragrance that is the epitome of femininity. A bouquet of abstract flowers with an indefinable femininity.",
+          "Volume": 100,
+          "Price": 130,
+          "image": "https://example.com/chanel-no5.jpg",
+          "Inventory": 18
+        }
+      },
+      {
+        "OrderID": 5,
+        "ProductID": 4,
+        "Quantity": 2,
+        "Product": {
+          "ProductID": 5,
+          "CategoryID": 2,
+          "Name": "Chanel No. 5 Eau de Parfum",
+          "Brand": "Chanel",
+          "Description": "An abstract, mysterious fragrance that is the epitome of femininity. A bouquet of abstract flowers with an indefinable femininity.",
+          "Volume": 100,
+          "Price": 130,
+          "image": "https://example.com/chanel-no5.jpg",
+          "Inventory": 18
+        }
+      },
+      {
+        "OrderID": 5,
+        "ProductID": 5,
+        "Quantity": 2,
+        "Product": {
+          "ProductID": 5,
+          "CategoryID": 2,
+          "Name": "Chanel No. 5 Eau de Parfum",
+          "Brand": "Chanel",
+          "Description": "An abstract, mysterious fragrance that is the epitome of femininity. A bouquet of abstract flowers with an indefinable femininity.",
+          "Volume": 100,
+          "Price": 130,
+          "image": "https://example.com/chanel-no5.jpg",
+          "Inventory": 18
+        }
+      }
+    ],
+    "Customer": {
+      "CustomerID": 5,
+      "Name": "Nguyễn Lê Bảo Anh",
+      "Phone": "09876543212",
+      "Gender": "Female"
+    }
+  },
+  {
+    "OrderID": 7,
+    "CustomerID": 3,
+    "OrderDate": "2023-02-01T13:45:00.000Z",
+    "Status": "Đã xác nhận",
+    "OrderDetail": [
+      {
+        "OrderID": 7,
+        "ProductID": 8,
+        "Quantity": 2,
+        "Product": null
+      }
+    ],
+    "Customer": {
+      "CustomerID": 3,
+      "Name": "Nguyễn Lê Mai Anh",
+      "Phone": "09876543211",
+      "Gender": "Female"
+    }
+  }
+]

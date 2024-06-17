@@ -23,7 +23,7 @@ module.exports = {
                 allowNull: false,
             },
             Status: {
-                type: Sequelize.BOOLEAN,
+                type: Sequelize.STRING,
                 allowNull: false,
             }
         });

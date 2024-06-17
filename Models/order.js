@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
                 as: 'Customer'
             });
 
-            Order.hasMany(models.OrderDetail, { foreignKey: 'OrderID' ,as: 'OrderDetail'});
+            Order.hasMany(models.OrderDetail, { 
+                foreignKey: 'OrderID' ,
+                as: 'OrderDetail'
+            });
         }
     }
     Order.init({
@@ -34,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         Status: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING,
             allowNull: false,
         },
     }, {

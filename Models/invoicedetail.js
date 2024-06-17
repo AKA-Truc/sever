@@ -12,19 +12,19 @@ module.exports = (sequelize, DataTypes) => {
             // Define the relationship between InvoiceDetail and Invoice
             InvoiceDetail.belongsTo(models.Invoice, {
                 foreignKey: 'InvoiceID',
-                as: 'invoice'
+                as: 'Invoice'
             });
-
             // Define the relationship between InvoiceDetail and Product
             InvoiceDetail.belongsTo(models.Product, {
                 foreignKey: 'ProductID',
-                as: 'product'
+                as: 'Product'
             });
         }
     }
     InvoiceDetail.init({
         InvoiceID: {
             type: DataTypes.INTEGER,
+            primaryKey: true,
             allowNull: false,
         },
         ProductID: {
