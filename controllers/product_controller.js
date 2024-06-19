@@ -15,6 +15,13 @@ const createProduct = asyncHandler(async (req, res) => {
         });
     }
 
+    if ( Volume > 0 && Price > 0 && Inventory > 0) {
+        return res.status(400).json({
+            success: false,
+            mes: "Dữ liệu không hợp lệ"
+        });
+    }
+
     try {
         // Tạo sản phẩm mới
         const newProduct = await db.Product.create({
@@ -96,6 +103,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
 });
 
+
 const deleteProduct = asyncHandler(async (req, res) => {
     const { pid } = req.params;
     try {
@@ -163,7 +171,8 @@ const uploadImageProduct = asyncHandler(async (req, res) => {
 
         const imagePaths = req.files.map(el => el.path);
 
-        await db.product.update({
+        // Cập nhật hình ảnh sản phẩm
+        await product.update({
             Image: [...product.Image, ...imagePaths]
         });
 

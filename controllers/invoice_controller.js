@@ -136,79 +136,8 @@ const getAllInvoice = asyncHandler(async (req, res) => {
     }
 });
 
-
-const updateInvoice = asyncHandler(async (req, res) => {
-    const { iid } = req.params;
-    const { invoiceData, invoiceDetailData } = req.body;
-    const transaction = await db.sequelize.transaction();
-
-    try {
-        const invoice = await db.Invoice.findByPk(iid, { transaction });
-        if (!invoice) {
-            return res.status(404).json({ error: 'Invoice not found' });
-        }
-
-        // Update the invoice data
-        await invoice.update(invoiceData, { transaction });
-
-        // Delete old invoice details
-        await db.InvoiceDetail.destroy({
-            where: { InvoiceID: iid },
-            transaction
-        });
-
-        // Create new invoice details
-        const invoiceDetailPromises = invoiceDetailData.map(async (item) => {
-            const { ProductID, Quantity } = item;
-
-            if (!ProductID || !Quantity) {
-                throw new Error('Missing required fields in invoice details');
-            }
-
-            // Find the product
-            const product = await db.Product.findByPk(ProductID, { transaction });
-
-            if (!product) {
-                throw new Error(`Product with ID: ${ProductID} not found`);
-            }
-
-            // Check inventory
-            if (product.Inventory < Quantity) {
-                throw new Error(`Product with ID: ${ProductID} does not have enough inventory`);
-            }
-
-            // Update inventory
-            product.Inventory -= Quantity;
-            await product.save({ transaction });
-
-            return db.InvoiceDetail.create(
-                {
-                    InvoiceID: invoice.InvoiceID,
-                    ProductID,
-                    Quantity
-                },
-                { transaction }
-            );
-        });
-
-        await Promise.all(invoiceDetailPromises);
-
-        // Commit transaction
-        await transaction.commit();
-
-        res.status(200).json(invoice);
-    } catch (error) {
-        // Rollback transaction in case of error
-        await transaction.rollback();
-        console.error(error);
-        res.status(400).json({ error: error.message });
-    }
-});
-
-
 module.exports = {
     createInvoice,
     getInvoice,
     getAllInvoice,
-    updateInvoice,
 };

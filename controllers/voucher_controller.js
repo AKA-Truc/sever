@@ -12,6 +12,13 @@ const createNewVoucher = asyncHandler(async (req, res) => {
         });
     }
 
+    if (Percent <= 0 || Mincost < 0 || Maxcost <= Mincost) {
+        return res.status(400).json({
+            success: false,
+            message: 'Giá trị không hợp lệ'
+        });
+    }
+    
     try {
         const response = await db.Voucher.create({
             Name: Name,

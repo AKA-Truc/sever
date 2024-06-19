@@ -14,7 +14,14 @@ const addUserByAdmin = asyncHandler(async (req, res) => {
             mes: "Vui lòng nhập đầy đủ thông tin"
         });
     }
-    //dont check users
+
+    if (Phone.length > 10 && Phone[0] == '0') {
+        return res.status(400).json({
+            success: false,
+            mes: "Số điện thoại không hợp lệ"
+        });
+    }
+    
     const newUser = await db.User.create({
         Name,
         Phone,

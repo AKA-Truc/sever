@@ -112,53 +112,83 @@ const getOrder = asyncHandler(async (req, res) => {
 });
 
 const updateOrder = asyncHandler(async (req, res) => {
-    const { oid } = req.params;
-    const { orderData, orderDetailData } = req.body;
-    const t = await db.sequelize.transaction();
-  
-    try {
+  const { oid } = req.params;
+  const { CustomerID, OrderDate, Status, orderDetails } = req.body;
+  const t = await db.sequelize.transaction();
+
+  try {
       const order = await db.Order.findByPk(oid, { transaction: t });
       if (!order) {
-        return res.status(404).json({ error: 'Không tìm thấy sản phẩm' });
+          return res.status(404).json({ error: 'Không tìm thấy đơn hàng' });
       }
-  
-      await db.order.update(orderData, { transaction: t });
-  
+
+      // Update thông tin đơn hàng
+      await order.update({
+          CustomerID,
+          OrderDate,
+          Status
+      }, { transaction: t });
+
       // Xóa các mục trong đơn hàng cũ
-      await db.OrderItem.destroy({
-        where: { OrderID: id },
-        transaction: t
+      await db.OrderDetail.destroy({
+          where: { OrderID: oid },
+          transaction: t
       });
-  
+
       // Tạo các mục trong đơn hàng mới và cập nhật số lượng tồn kho
-      for (const item of orderDetailData) {
-        const product = await db.Product.findByPk(item.ProductID, { transaction: t });
-        if (!product) {
-          throw new Error(`Không tìm thấy sản phẩm`);
-        }
-        if (product.Quantity < item.Quantity) {
-          throw new Error(`Sản phẩm không đủ số lượng`);
-        }
-  
-        // Tạo OrderItem
-        await db.OrderItem.create({
-          OrderID: order.OrderID,
-          ProductID: item.ProductID,
-          Quantity: item.Quantity,
-        }, { transaction: t });
-  
-        // Cập nhật số lượng tồn kho
-        product.Quantity -= item.Quantity;
-        await db.product.save({ transaction: t });
-      }
-  
+      const orderDetailPromises = orderDetails.map(async (item) => {
+          const { ProductID, Quantity } = item;
+
+          if (!ProductID || !Quantity) {
+              throw new Error('Thiếu các trường bắt buộc trong chi tiết đơn hàng');
+          }
+
+          // Tìm sản phẩm
+          const product = await db.Product.findByPk(ProductID, { transaction: t });
+
+          if (!product) {
+              throw new Error(`Không tìm thấy sản phẩm với ID: ${ProductID}`);
+          }
+
+          // Kiểm tra tồn kho
+          if (product.Inventory < Quantity) {
+              throw new Error(`Sản phẩm với ID: ${ProductID} không đủ tồn kho`);
+          }
+
+          // Cập nhật số lượng tồn kho
+          product.Inventory -= Quantity;
+          await product.save({ transaction: t });
+
+          // Tạo OrderDetail mới
+          return db.OrderDetail.create({
+              OrderID: order.OrderID,
+              ProductID,
+              Quantity
+          }, { transaction: t });
+      });
+
+      await Promise.all(orderDetailPromises);
+
+      // Commit transaction
       await t.commit();
-      res.status(200).json(order);
-    } catch (error) {
+
+      // Lấy thông tin đơn hàng sau khi đã cập nhật
+      const updatedOrder = await db.Order.findByPk(oid, {
+          include: [
+              { model: db.OrderDetail, as: 'OrderDetail', include: [{ model: db.Product, as: 'Product' }] },
+              { model: db.Customer, as: 'Customer' }
+          ],
+          transaction: t
+      });
+
+      res.status(200).json(updatedOrder);
+  } catch (error) {
       await t.rollback();
+      console.error(error);
       res.status(400).json({ error: error.message });
-    }
+  }
 });
+
 
 const deleteOrder = asyncHandler(async (req, res) => {
   const { oid } = req.params;

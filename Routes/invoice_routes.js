@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.post('/createInvoice', createInvoice);//ok
 router.get('/getAllInvoice', getAllInvoice);//
-router.get('/getInvoice/:iid', getInvoice);
-router.put('/updateInvoice/:iid', updateInvoice);
+router.get('/getInvoice/:iid', getInvoice);//ok
 
 module.exports = router;

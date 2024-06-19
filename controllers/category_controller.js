@@ -58,25 +58,40 @@ const getCategory = asyncHandler(async (req, res) => {
     }
 });
 
+
 const updateCategory = asyncHandler(async (req, res) => {
     const { ctid } = req.params;
 
-    const category = await db.Category.findByPk(ctid);
+    try {
+        // Tìm danh mục theo ID
+        const category = await db.Category.findByPk(ctid);
 
-    if (!category) {
-        return res.status(404).json({
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Danh mục không tồn tại"
+            });
+        }
+
+        // Cập nhật danh mục với dữ liệu mới
+        await db.Category.update(req.body, { where: { CategoryID: ctid } });
+
+        // Lấy danh mục đã được cập nhật
+        const updatedCategory = await db.Category.findByPk(ctid);
+
+        return res.status(200).json({
+            success: true,
+            updatedCategory
+        });
+    } catch (error) {
+        console.error("Error in updateCategory:", error);
+        return res.status(500).json({
             success: false,
-            message: "Danh mục không tồn tại"
+            message: "Đã xảy ra lỗi khi cập nhật danh mục"
         });
     }
-
-    await db.category.update(req.body);
-
-    return res.status(200).json({
-        success: true,
-        updatedCategory: category
-    });
 });
+
 
 const deleteCategory = asyncHandler(async (req, res) => {
     const { ctid } = req.params;

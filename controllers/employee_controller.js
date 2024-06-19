@@ -4,11 +4,18 @@ const asyncHandler = require('express-async-handler');
 
 const createEmployee = asyncHandler(async (req, res) => {
     const { Name, Phone ,Gender, Address, Role,Salary } = req.body;
-
+    console.log(req.body);
     if (!Name || !Phone || !Gender || !Address || !Role || !Salary ) {
         return res.status(400).json({
             success: false,
             mes: "Vui lòng nhập đầy đủ thông tin"
+        });
+    }
+
+    if ((Phone.length > 10 && Phone[0] == '0') || Salary < 0) {
+        return res.status(400).json({
+            success: false,
+            mes: "Dữ liệu không hợp lệ"
         });
     }
     const employeeExist = await db.Employee.findOne({ where: {  Name, Phone ,Gender, Address, Role,Salary } });
@@ -61,25 +68,39 @@ const getEmployee = asyncHandler(async(req, res) => {
     }
 });
 
-const updateEmployee = asyncHandler(async(req, res) => {
+const updateEmployee = asyncHandler(async (req, res) => {
     const { eid } = req.params;
 
-    const Employee = await db.Employee.findByPk(eid);
+    try {
+        // Tìm nhân viên theo ID
+        const employee = await db.Employee.findByPk(eid);
 
-    if (!Employee) {
-        return res.status(404).json({
+        if (!employee) {
+            return res.status(404).json({
+                success: false,
+                message: "Nhân viên không tồn tại"
+            });
+        }
+
+        // Cập nhật thông tin nhân viên
+        await employee.update(req.body);
+
+        // Lấy thông tin nhân viên sau khi đã cập nhật
+        const updatedEmployee = await db.Employee.findByPk(eid);
+
+        return res.status(200).json({
+            success: true,
+            updatedEmployee
+        });
+    } catch (error) {
+        console.error("Error in updateEmployee:", error);
+        return res.status(500).json({
             success: false,
-            message: "Nhân viên không tồn tại"
+            message: "Đã xảy ra lỗi khi cập nhật thông tin nhân viên"
         });
     }
-
-    await db.Employee.update(req.body);
-
-    return res.status(200).json({
-        success: true,
-        updatedEmployee: Employee
-    });
 });
+
 
 const deleteEmployee = asyncHandler(async (req, res) => {
     const { eid } = req.params;
