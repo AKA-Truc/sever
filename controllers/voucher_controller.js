@@ -26,7 +26,7 @@ const createNewVoucher = asyncHandler(async (req, res) => {
             Percent: Percent,
             Mincost: Mincost,
             Maxcost: Maxcost,
-            EXDate: new Date(Date.now() + EXDate * 24 * 60 * 60 * 1000)
+            EXDate: EXDate,
         });
 
         return res.status(200).json({
