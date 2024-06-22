@@ -100,7 +100,7 @@ const getOrder = asyncHandler(async (req, res) => {
     const { oid } = req.params;
     try {
       const order = await db.Order.findByPk(oid, {
-        include: [ {model: db.OrderDetail , as: 'OrderDetail'},{ model: db.Customer, as: 'Customer' }]
+        include: [ {model: db.OrderDetail , as: 'OrderDetail', include: [ {model: db.Product, as: 'Product'}]},{ model: db.Customer, as: 'Customer' }]
       });
       if (!order) {
         return res.status(404).json({ error: 'Không tìm thấy đơn hàng' });
@@ -219,10 +219,31 @@ const deleteOrder = asyncHandler(async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
+const confirmOrder = asyncHandler(async (req, res) => {
+  const { oid } = req.params;
+
+  try {
+    const order = await db.Order.findByPk(oid);
+
+    if (!order) {
+      return res.status(404).json({ error: 'Không tìm thấy đơn hàng' });
+    }
+
+    // Update trạng thái đơn hàng thành 'Đã xác nhận' (Status = 2)
+    order.Status = "Đã Xác Nhận";
+    await order.save();
+
+    res.status(200).json({ message: 'Xác nhận đơn hàng thành công', order });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Xác nhận đơn hàng thất bại' });
+  }
+});
 module.exports = {
     createOrder,
     getAllOrder,
     getOrder,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    confirmOrder
 };
