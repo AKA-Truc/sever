@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <td class="editable">${order.Status}</td>
                             <td class="action-buttons">
                                 <button class="edit-btn"><ion-icon name="create-outline"></ion-icon></button>
-                                <button class="confirm-btn" data-id="${order.OrderID}"><ion-icon name="checkbox-outline"></ion-icon></button>
+                                <button class="delete-btn" data-id="${order.OrderID }"><ion-icon name="trash-outline"></ion-icon></button>
                             </td>
                         `;
 
@@ -50,15 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Add event listeners for confirm buttons
                 const popup = document.getElementById('popup');
-                const confirmBtns = document.querySelectorAll('.confirm-btn');
+                const confirmBtns = document.querySelectorAll('.delete-btn');
                 let currentRow;
-                let orderIdToConfirm;
+                let orderIdToDelete;
 
                 confirmBtns.forEach(button => {
                     button.addEventListener('click', function () {
                         popup.style.display = 'flex';
                         currentRow = this.closest('tr');
-                        orderIdToConfirm = this.getAttribute('data-id');
+                        orderIdToDelete = this.getAttribute('data-id');
                     });
                 });
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (popupOk) {
                     popupOk.addEventListener('click', () => {
                         if (orderIdToConfirm) {
-                            fetch(`http://localhost:8080/api/order/confirmOrder/${orderIdToConfirm}`, {
+                            fetch(`http://localhost:8080/api/order/deleteOrder/${orderIdToDelete}`, {
                                 method: 'PUT'
                             })
                             .then(response => {

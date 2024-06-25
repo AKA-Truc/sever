@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div class="sidebar">
+  <div class="sidebar">
     <h2>PERFUME SHOP</h2>
     <ul class="main-menu">
         <li><a href="../menu/menu.html"><span class="icon"><ion-icon name="home-outline"></ion-icon></span> Trang chủ</a></li>
@@ -51,7 +51,7 @@
                 <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
                 <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
                 <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
-                <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo Hóa đơn</a></li>
+                <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
             </ul>
         </li>
         <li class="submenu">
@@ -71,3 +71,130 @@
         </li>
     </ul>
 </div>
+
+<div class="navbar">
+    <div class="navbar__info">
+      <p>Admin Thùy Trang</p>
+    </div>
+    <div class="navbar__cta">
+      <div class="navbar__hello">
+        <ion-icon name="notifications-outline"></ion-icon> 5 Notifications
+      </div>
+      <div class="navbar__hello">
+        <ion-icon name="settings-outline"></ion-icon> Settings
+      </div>
+      <div class="navbar__background-icon">
+        <img src="../assets/img/account.svg" alt="" />
+        </div>
+      <div class="navbar__hello">
+        <p>Xin chào, Admin</p>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-separator"></div>
+  <div class="main">
+    <!-- Content goes here -->
+  </div>
+</div>
+
+<!--  -->
+
+<div class="body1">
+  <div class="wrapper">
+    <form id="employeeform">
+      <div class="top-fields">
+        <div class="field input">
+          <label for="Name">Họ Và Tên</label>
+          <input type="text" id="Name" name="Name" placeholder="Vui lòng nhập họ và tên" required>
+        </div>
+        <div class="field input">
+          <label for="Phone">SĐT</label>
+          <input type="tel" id="Phone" name="Phone" placeholder="Vui lòng nhập SĐT" required>
+        </div>
+      </div>
+      <div class="top-fields">
+        <div class="field input">
+          <label for="OrderDate">Ngày Kết Thúc</label>
+          <input type="datetime-local" id="OrderDate" name="OrderDate" placeholder="" required>
+        </div>
+        <label for="GenderMale" style="display:flexbox; padding-left: 10px;">Giới Tính</label>
+          <input type="radio" name="Gender" id="GenderMale" value="Nam"> Nam
+        <label for="GenderFemale"> </label> 
+          <input type="radio" name="Gender" id="GenderFemale" value="Nữ"> Nữ
+      </div>
+      <div class="middle-fields">
+        <h1>Giỏ hàng</h1>
+        <div id="product-list">
+          <!-- Product entry forms will be added here dynamically -->
+        </div>
+        <button type="button" onclick="addProduct()" class="add-product-btn">Thêm sản phẩm +</button><br>
+        <button type="button" onclick="submitOrder()" class="submit-btn">Xác nhận đơn hàng</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .main-content {
+    flex-grow: 1;
+    padding-left: 500px;
+  }
+
+  .cart h1 {
+    margin-bottom: 20px;
+  }
+
+  .add-product-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .add-product-btn:hover {
+    background-color: #46b8da;
+  }
+
+  .product-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .product-form .input {
+    flex: 1;
+  }
+
+  .product-form input,
+  .product-form select {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .product-form .remove-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .product-form .remove-btn:hover {
+    background-color: #c9302c;
+  }
+</style>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="themdonhang.js"></script>
+
+</body>
+</html>

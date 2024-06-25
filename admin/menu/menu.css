@@ -153,125 +153,6 @@ ion-icon {
 
 
 /* main section */
-/* .main{
-  position: absolute;
-  top: 60px;
-  width: calc(100% - 260px);
-  left: 260px ;
-  display: flex;
-  top: 130px;
-  justify-content: space-around;
-}
-
-
-.box1{
-  height: 70px;
-  width: 250px;
-  background-color: var(--red);
-  border-radius: 10px;
-  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
-}
-.box1 .icon-box{
-  margin: 10px;
-}
-
-.box1 .icon-box .name{
-  font-weight: 500;
-  color:var(--white);
-  margin-top: -40px;
-  margin-left: 100px;
-  
-}
-
-.box1 .icon-box .cardName{
-  font-weight: 500;
-  color: var(--white);
-  margin-top: 1px;
-  margin-left: 100px;
-  
-}
-
-.box2{
-  height: 70px;
-  width: 250px;
-  background-color: var(--green);
-  border-radius: 10px;
-  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
-}
-
-.box2 .icon-box{
-  margin: 10px;
-}
-
-.box2 .icon-box .name{
-  font-weight: 500;
-  color:var(--white);
-  margin-top: -40px;
-  margin-left: 100px;
-  
-}
-
-.box2 .icon-box .cardName{
-  font-weight: 500;
-  color: var(--white);
-  margin-top: 1px;
-  margin-left: 100px;
-  
-}
-.box3{
-  height: 70px;
-  width: 250px;
-  background-color: var(--blue);
-  border-radius: 10px;
-  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
-}
-.box3 .icon-box{
-  margin: 10px;
-}
-
-.box3 .icon-box .name{
-  font-weight: 500;
-  color:var(--white);
-  margin-top: -40px;
-  margin-left: 100px;
-  
-}
-
-.box3 .icon-box .cardName{
-  font-weight: 500;
-  color: var(--white);
-  margin-top: 1px;
-  margin-left: 100px;
-  
-}
-.box4{
-  height: 70px;
-  width: 250px;
-  background-color: var(--yellow);
-  border-radius: 10px;
-  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
-}
-.box4 .icon-box{
-  margin: 10px;
-}
-
-.box4 .icon-box .name{
-  font-weight: 500;
-  color:var(--white);
-  margin-top: -40px;
-  margin-left: 100px;
-  
-}
-
-.box4 .icon-box .cardName{
-  font-weight: 500;
-  color: var(--white);
-  margin-top: 1px;
-  margin-left: 100px;
-  
-} */
-
-/* main section */
 
 /* main */
 .main{
@@ -326,25 +207,38 @@ h1 {
   font-weight: 100;
   font-size: 20px;
 }
-
+.table-wrapper {
+  width: 80%;
+  padding: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #EDEFE4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 table {
-  margin-left: 310px ;
-  width: 77%;
-  /* border-collapse: collapse; */
-  /* margin-top: 10px; */
-  font-size: 15px ;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
 th, td {
-  border: 2px solid #717b8e;
+  padding: 23px;
   text-align: left;
-  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
 }
 
 th {
-  background-color:#fff;
-  color:#000000;
+  background-color: #f9f9f9;
+  color: black;
 }
+
 
 tr:nth-child(even) {
   background-color: #eae9e9;
@@ -383,11 +277,11 @@ body {
   overflow: hidden;
 }
 
+/* Updated CSS for table alignment */
 .table-sortable {
   width: 80%;
-  /* border-collapse: collapse; */
-  margin-left: 300px;
-  margin-top: 20px;
+  margin: 20px auto; /* Centering the table horizontally */
+  border-collapse: collapse;
 }
 
 .table-sortable th, .table-sortable td {
@@ -396,7 +290,7 @@ body {
 }
 
 .table-sortable th {
-  background-color: rgb(0, 85, 255, 0.9);
+  background-color: rgba(0, 85, 255, 0.9);
   color: #fff;
   cursor: pointer;
 }
@@ -407,12 +301,13 @@ body {
 
 /* Button styles */
 .action-buttons {
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.edit-btn, .delete-btn {
+.edit-btn,
+.delete-btn {
   border: none;
   color: white;
   padding: 5px 10px;
@@ -422,16 +317,16 @@ body {
   font-size: 16px;
   margin: 2px 2px;
   cursor: pointer;
-
 }
 
 .edit-btn {
-  background-color:#f44336;
+  background-color: #f44336;
   margin-left: 135px;
 }
 
 .delete-btn {
   background-color: var(--blue);
 }
+
 
 

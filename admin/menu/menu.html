@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div class="sidebar">
+  <div class="sidebar">
     <h2>PERFUME SHOP</h2>
     <ul class="main-menu">
         <li><a href="../menu/menu.html"><span class="icon"><ion-icon name="home-outline"></ion-icon></span> Trang chủ</a></li>
@@ -51,7 +51,7 @@
                 <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
                 <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
                 <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
-                <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo Hóa đơn</a></li>
+                <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
             </ul>
         </li>
         <li class="submenu">
@@ -104,22 +104,24 @@
     <title>Trang chủ</title>
     <link rel="stylesheet" href="menu.css">
 </head>
-<body>
+<div class="main-content">
+  <div class="customer-management">
     <h1>Đơn hàng cần xác nhận </h1>
-    <table id="requests-table">
-      <thead>
-        <tr>
-            <th class="center-heading">STT</th>
-            <th class="center-heading">Mã Đơn Hàng</th>
-            <th class="center-heading">Khách hàng</th>
-            <th class="center-heading">Ngày đặt hàng</th>
-            <th class="center-heading">Trạng thái</th>
-            <th class="center-heading">Thao tác</th>
-        </tr>
-    </thead>
-        <tbody id = "order-List">
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table id="requests-table">
+        <thead>
+          <tr>
+              <th class="center-heading">STT</th>
+              <th class="center-heading">Mã Đơn Hàng</th>
+              <th class="center-heading">Khách hàng</th>
+              <th class="center-heading">Ngày đặt hàng</th>
+              <th class="center-heading">Trạng thái</th>
+              <th class="center-heading">Thao tác</th>
+          </tr>
+      </thead>
+          <tbody id = "order-List">
+          </tbody>
+      </table>
 
       <!-- Popup Modal -->
     <div id="popup" class="popup">
@@ -172,7 +174,9 @@
     </style>
 
     <script src="menu.js"></script>
-</body>
+</div>
+  </div>
+  <
 </html>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

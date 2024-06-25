@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Document is ready.');
 
-    const fetchAndDisplayOrders = () => {
-        fetch('http://localhost:8080/api/order/getAllOrder')
+    const fetchAndDisplayInvoices = () => {
+        fetch('http://localhost:8080/api/invoice/getAllInvoice')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -12,90 +12,54 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 console.log('Data fetched:', data);
 
-                const orders = data;
+                const invoices = data;
 
-                if (!Array.isArray(orders)) {
-                    throw new Error('Expected an array of orders');
+                if (!Array.isArray(invoices)) {
+                    throw new Error('Expected an array of invoices');
                 }
 
-                const orderList = document.getElementById('order-List');
-                orderList.innerHTML = ''; // Clear previous rows
+                const invoiceList = document.getElementById('invoice-list');
+                if (!invoiceList) {
+                    throw new Error('Invoice list element not found');
+                }
 
-                orders.forEach((order, index) => {
-                        const row = document.createElement('tr');
+                invoiceList.innerHTML = ''; // Clear previous rows
 
-                        row.innerHTML = `
-                            <td class="editable">${index + 1}</td>
-                            <td class="editable">${order.OrderID}</td>
-                            <td class="editable">${order.Customer.Name}</td>
-                            <td class="editable">${order.OrderDate}</td>
-                            <td class="editable">${order.Status}</td>
-                            <td class="action-buttons">
-                                <button class="edit-btn"><ion-icon name="eye-outline"></ion-icon></button>
-                            </td>
-                        `;
+                invoices.forEach((invoice, index) => {
+                    const row = document.createElement('tr');
+                    console.log(invoice.Voucher); // This should print voucher details
 
-                        orderList.appendChild(row);
+                    const voucherInfo = invoice.Voucher 
+                        ? `${invoice.Voucher.Name} - ${invoice.Voucher.Describes}`
+                        : 'Không Áp Dụng';
 
-                        // Add click event listener to edit button
-                        const editBtn = row.querySelector('.edit-btn');
-                        editBtn.addEventListener('click', () => {
-                            if (order.Status !== 'Chưa Xác Nhận') {
-                                // Chuyển đến trang chỉnh sửa đơn hàng chưa xác nhận
-                                    alert('Tính năng đang được được phát triển');
-                               // window.location.href = `./bill.html?id=${order.OrderID}`;
-                            } else {
-                                // Chuyển đến trang chi tiết đơn hàng đã xác nhận
-                                window.location.href = `./detail.html?id=${order.OrderID}`;
-                            }
-                        });
-                    }
-                );
+                    const formattedTotalCost = invoice.Totalcost.toLocaleString(); // Format total cost
 
-                // Add event listeners for confirm buttons
-                const popup = document.getElementById('popup');
-                const confirmBtns = document.querySelectorAll('.confirm-btn');
-                let currentRow;
-                let orderIdToConfirm;
+                    row.innerHTML = `
+                        <td class="editable">${index + 1}</td>
+                        <td class="editable">${invoice.InvoiceID}</td>
+                        <td class="editable">${invoice.Customer ? invoice.Customer.Name : 'N/A'}</td>
+                        <td class="editable">${invoice.InvoiceDate}</td>
+                        <td class="editable">${voucherInfo}</td>
+                        <td class="editable">${formattedTotalCost}</td>
+                        <td class="action-buttons">
+                            <button class="edit-btn"><ion-icon name="eye-outline"></ion-icon></button>
+                        </td>
+                    `;
 
-                confirmBtns.forEach(button => {
-                    button.addEventListener('click', function () {
-                        popup.style.display = 'flex';
-                        currentRow = this.closest('tr');
-                        orderIdToConfirm = this.getAttribute('data-id');
+                    invoiceList.appendChild(row);
+
+                    // Add click event listener to edit button
+                    const editBtn = row.querySelector('.edit-btn');
+                    editBtn.addEventListener('click', () => {
+                        // Redirect to invoice detail page
+                        window.location.href = `./bill.html?InvoiceID=${invoice.InvoiceID}`;
                     });
                 });
-
-                // Event listener for OK button in the popup
-                const popupOk = document.getElementById('popupOk');
-                if (popupOk) {
-                    popupOk.addEventListener('click', () => {
-                        if (orderIdToConfirm) {
-                            fetch(`http://localhost:8080/api/order/confirmOrder/${orderIdToConfirm}`, {
-                                method: 'PUT'
-                            })
-                            .then(response => {
-                                if (response.ok) {
-                                    currentRow.querySelector('.editable:nth-child(5)').textContent = 'Đã xác nhận';
-                                    alert('Order confirmed successfully');
-                                } else {
-                                    alert('Failed to confirm order');
-                                }
-                                popup.style.display = 'none';
-                            })
-                            .catch(error => {
-                                console.error('Error confirming order:', error);
-                                popup.style.display = 'none';
-                            });
-                        }
-                    });
-                } else {
-                    console.error('OK button not found in popup');
-                }
             })
-            .catch(error => console.error('Error fetching orders:', error));
+            .catch(error => console.error('Error fetching or displaying invoices:', error.message));
     };
 
     // Initial fetch and display
-    fetchAndDisplayOrders();
+    fetchAndDisplayInvoices();
 });
