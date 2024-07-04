@@ -6,6 +6,8 @@ const fetchOrderDetailsAndUpdateHTML = async () => {
 
     console.log(InvoiceID);
 
+    let totalAmount = 0; // Declare totalAmount and initialize it to 0
+
     try {
         const invoiceResponse = await fetch(`http://localhost:8080/api/invoice/getInvoice/${InvoiceID}`);
 
@@ -28,10 +30,10 @@ const fetchOrderDetailsAndUpdateHTML = async () => {
         // Cập nhật bảng sản phẩm với chi tiết đơn hàng
         const productTableBody = document.getElementById('product-table-body');
         productTableBody.innerHTML = ''; // Xóa nội dung hiện tại
-        let totalAmount = 0;
 
-        if (invoice.InvoiceDetail && Array.isArray(invoice.InvoiceDetail)) {
-            invoice.InvoiceDetail.forEach(detail => {
+        if (invoice.Order && invoice.Order.OrderDetail && Array.isArray(invoice.Order.OrderDetail)) {
+            invoice.Order.OrderDetail.forEach(detail => {
+                console.log(detail);
                 const productTotal = detail.Quantity * detail.Product.Price;
                 totalAmount += productTotal;
 
@@ -85,13 +87,18 @@ document.addEventListener('DOMContentLoaded', fetchOrderDetailsAndUpdateHTML);
 // Xử lý sự kiện khi người dùng nhấn vào nút Xác Nhận Đơn Hàng
 document.getElementById('confirmButton').addEventListener('click', async function () {
     try {
-        // Thực hiện các hành động xác nhận đơn hàng, ví dụ như gửi yêu cầu lưu đơn hàng hoặc thông báo xác nhận
-        alert('Đơn hàng đã được xác nhận!');
-
         // Chuyển hướng người dùng về trang chủ hoặc trang khác
-        window.location.href = '../menu/menu.html'; // Thay đổi đường dẫn theo trang bạn muốn chuyển hướng đến
+        window.location.href = '../order/order.html'; // Thay đổi đường dẫn theo trang bạn muốn chuyển hướng đến
     } catch (error) {
         console.error('Lỗi khi xác nhận đơn hàng:', error);
         alert('Đã xảy ra lỗi khi xác nhận đơn hàng');
+    }
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
     }
 });

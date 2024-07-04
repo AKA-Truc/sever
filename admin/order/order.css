@@ -150,3 +150,38 @@ ion-icon {
   height: 1px;
   background-color: #819c71e7;
 }
+
+/* table */
+.table-wrapper {
+  /* width: 80%; */
+  padding: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #EDEFE4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 1110px; margin-left:270px; align-items: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 23px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+th {
+  background-color: #f9f9f9;
+  color: black;
+}
+/*  */

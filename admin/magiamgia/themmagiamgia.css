@@ -156,10 +156,9 @@ ion-icon {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 40px;
+  margin: 90px;
   height: 50vh;
-  margin-left: -400px;
-  margin-left: 200px;
+  margin-left: 260px;
 }
 
 .wrapper {

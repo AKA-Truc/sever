@@ -1,116 +1,109 @@
-// Function to fetch order details based on order ID
+let availableProducts = [];
+
 async function fetchOrderDetails(orderId) {
     try {
         const response = await fetch(`http://localhost:8080/api/order/getOrder/${orderId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch order details');
         }
-        const data = await response.json();
-        return data.orderData; // Adjust based on actual response structure
+        const orderData = await response.json();
+        console.log('Order data from API:', orderData);
+
+        if (orderData) {
+            document.getElementById('Name').textContent = orderData.Customer.Name || '';
+            document.getElementById('Phone').textContent = orderData.Customer.Phone || '';
+            document.getElementById('Gender').textContent = orderData.Customer.Gender || '';
+            if (orderData.OrderDate) {
+                const orderDate = new Date(orderData.OrderDate);
+                const formattedOrderDate = orderDate.toISOString().slice(0, 16);
+                document.getElementById('OrderDate').value = formattedOrderDate;
+            } else {
+                document.getElementById('OrderDate').value = '';
+            }
+
+            const productContainer = document.getElementById('product-list');
+            productContainer.innerHTML = ''; // Clear existing product entries
+
+        }
     } catch (error) {
         console.error('Error fetching order details:', error);
-        return null;
+        alert('Failed to fetch order details');
     }
 }
 
-// Function to fetch categories for product selection
-async function fetchCategories() {
+async function fetchAvailableProducts() {
     try {
-        const response = await fetch('http://localhost:8080/api/category/getAllCategories');
+        const response = await fetch('http://localhost:8080/api/product/getAllProduct');
         if (!response.ok) {
-            throw new Error('Failed to fetch categories');
+            throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        return data.listCategory; // Adjust based on actual response structure
+  
+        // Log the response data to check its structure
+        console.log(data);
+  
+        // Check the actual structure of the data
+        if (!Array.isArray(data.productData)) {
+            throw new Error('Expected an array');
+        }
+  
+        availableProducts = data.productData;
     } catch (error) {
-        console.error('Error fetching categories:', error);
-        return [];
+        console.error('Error fetching products:', error);
+        alert('Đã xảy ra lỗi khi tải dữ liệu sản phẩm. Vui lòng thử lại sau!');
     }
 }
 
-// Function to populate select options with categories
-function populateCategories(categories) {
-    const categorySelect = document.getElementById('CategoryID');
-    categorySelect.innerHTML = ''; // Clear existing options
-
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.CategoryID;
-        option.textContent = category.Name;
-        categorySelect.appendChild(option);
-    });
-}
-
-// Function to update the form with order details
-function updateOrderForm(order) {
-    document.getElementById('Name').value = order.Name || '';
-    document.getElementById('Phone').value = order.Phone || '';
-    document.getElementById('OrderDate').value = order.OrderDate || '';
-    document.querySelector(`input[name="Gender"][value="${order.Gender || ''}"]`).checked = true;
-
-    // Populate products dynamically
+function addProductToForm(product = {}) {
     const productList = document.getElementById('product-list');
-    productList.innerHTML = ''; // Clear existing products
-
-    order.Products.forEach(product => {
-        const productForm = createProductForm(product.ProductName, product.Quantity);
-        productList.appendChild(productForm);
-    });
-}
-
-// Function to create a product form dynamically
-function createProductForm(productName = '', quantity = '') {
+    if (!productList) {
+        console.error('No element with id "product-list" found.');
+        return;
+    }
+  
     const productForm = document.createElement('div');
-    productForm.classList.add('product-form');
+    productForm.className = 'product-form';
+  
+    const select = document.createElement('select');
+    select.className = 'ProductID';
+    availableProducts.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.ProductID; // Replace item.ProductID with your actual product ID field
+        option.textContent = item.Name; // Replace item.Name with your actual product name field
+        select.appendChild(option);
+    });
 
+    // Set the selected value if provided
+    if (product.ProductID) {
+        select.value = product.ProductID;
+    }
+  
     productForm.innerHTML = `
-        <div class="input">
-            <label for="ProductName">Tên sản phẩm</label>
-            <input type="text" class="product-name" name="ProductName" value="${productName}" placeholder="Nhập tên sản phẩm" required>
-        </div>
-        <div class="input">
-            <label for="Quantity">Số lượng</label>
-            <input type="number" class="quantity" name="Quantity" value="${quantity}" placeholder="Nhập số lượng" required>
-        </div>
-        <button type="button" class="remove-btn" onclick="removeProduct(this)">Xóa</button>
+        <input type="number" placeholder="Số lượng" class="product-quantity" value="${product.Quantity || ''}" />
+        <button class="remove-btn" onclick="removeProduct(this)">Xóa</button>
     `;
-
-    return productForm;
-}
-
-// Function to add a product form dynamically
-function addProduct() {
-    const productList = document.getElementById('product-list');
-    const productForm = createProductForm();
+  
+    productForm.insertBefore(select, productForm.firstChild);
     productList.appendChild(productForm);
 }
 
-// Function to remove a product form
 function removeProduct(button) {
-    const productForm = button.closest('.product-form');
+    const productForm = button.parentElement;
     productForm.remove();
 }
 
-// Function to gather form data and submit the updated order
-async function submitUpdatedOrder(orderId) {
-    const formData = new FormData(document.getElementById('employeeform'));
+async function handleOrderFormSubmit(event) {
+    event.preventDefault();
 
+    const orderId = new URLSearchParams(window.location.search).get('id');
     const updatedOrder = {
-        Name: formData.get('Name'),
-        Phone: formData.get('Phone'),
-        OrderDate: formData.get('OrderDate'),
-        Gender: formData.get('Gender'),
-        Products: []
+        OrderDate: document.getElementById('OrderDate').value,
+        orderDetails: Array.from(document.querySelectorAll('.product-form')).map(form => ({
+            ProductID: form.querySelector('select.ProductID').value,
+            Quantity: form.querySelector('.product-quantity').value
+        }))
     };
-
-    const productForms = document.querySelectorAll('.product-form');
-    productForms.forEach(form => {
-        const productName = form.querySelector('.product-name').value;
-        const quantity = form.querySelector('.quantity').value;
-
-        updatedOrder.Products.push({ ProductName: productName, Quantity: quantity });
-    });
-
+    console.log("update Order: ",updatedOrder);
     try {
         const response = await fetch(`http://localhost:8080/api/order/updateOrder/${orderId}`, {
             method: 'PUT',
@@ -121,36 +114,43 @@ async function submitUpdatedOrder(orderId) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to update order');
+            throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
         alert('Order updated successfully!');
-        // Redirect or update UI as needed after successful update
-        console.log('Updated Order:', data); // Log the updated order data
+        window.location.href = `../order/detail.html?id=${orderId}`; // Change this to your redirection URL
     } catch (error) {
         console.error('Error updating order:', error);
         alert('Failed to update order');
     }
 }
-
-// Event listener for DOM content loaded
+function cancelEdit() {
+    if (confirm('Bạn có chắc chắn muốn hủy? Những thay đổi chưa lưu sẽ bị mất.')) {
+        const orderId = new URLSearchParams(window.location.search).get('id');
+        window.location.href = `../menu/menu.html`;
+    }
+}
 document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const orderId = urlParams.get('id');
     console.log("OrderID: ", orderId);
-
     if (orderId) {
-        const order = await fetchOrderDetails(orderId);
-        if (order) {
-            updateOrderForm(order);
-        } else {
-            console.error('Failed to fetch order details');
-            alert('Failed to fetch order details');
-        }
+        await fetchOrderDetails(orderId);
     }
 
-    const categories = await fetchCategories();
-    populateCategories(categories);
+    await fetchAvailableProducts();
+    document.getElementById('employeeform').addEventListener('submit', handleOrderFormSubmit);
 });
 
+function addProduct() {
+    addProductToForm();
+}
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
+});

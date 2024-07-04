@@ -6,7 +6,7 @@ async function fetchAndUpdateEmployeeDetails(employeeId) {
         }
         const data = await response.json();
 
-        console.log('Data from API:', data); // Kiểm tra dữ liệu từ API
+        console.log('Data from API:', data); // Check API data
 
         if (data.success && data.Employee) {
             const employee = data.Employee;
@@ -67,14 +67,22 @@ async function handleEmployeeFormSubmit(event) {
 
         const data = await response.json();
         alert('Employee updated successfully!');
-        window.location.href = '../quanly/QLNS.html'; // Thay đổi URL chuyển hướng của bạn
+        window.location.href = '../quanly/QLNS.html'; // Change to your redirect URL
     } catch (error) {
         console.error('Error updating employee:', error);
         alert('Failed to update employee');
     }
 }
 
-// Sự kiện lắng nghe khi DOM được tải
+// Function to handle form cancellation
+function cancelForm(event) {
+    event.preventDefault(); // Prevent the default form cancellation action
+    if (confirm('Bạn có chắc muốn hủy không?')) {
+        window.location.href = '../quanly/QLNS.html'; // Change to your desired redirect URL
+    }
+}
+
+// Event listener for DOM content loaded
 document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const employeeId = urlParams.get('id');
@@ -84,4 +92,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     document.getElementById('employeeform').addEventListener('submit', handleEmployeeFormSubmit);
+    document.querySelector('.cancel').addEventListener('click', cancelForm);
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
 });

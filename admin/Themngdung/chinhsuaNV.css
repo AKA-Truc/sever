@@ -155,14 +155,14 @@ ion-icon {
 .body1 {
   display: flex; /* Đẩy khung về phía bên phải */
   margin: 75px;
-  margin-left: 400px;
+  margin-left: 385px;
   height: 80vh;
   align-items: center; /* Căn giữa khung theo chiều dọc */
 }
 .wrapper {
   width: 120%; /* Chiều rộng của khung */
   max-width: 900px; /* Giới hạn chiều rộng tối đa của khung */
-  height:465px;
+  height:420px;
   padding: 30px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -195,6 +195,19 @@ ion-icon {
   box-sizing: border-box; 
   transition: border-color 0.3s ease; /* Hiệu ứng khi focus */
 }
+
+.field.input select {
+  width: 25%;
+  padding: 8px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px;
+  background-color: #fff; /* White background */
+  font-size: 14px;
+  color: #333; /* Dark gray text color */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  
+}
+
 .field input:focus {
   border-color: #000; /* Đổi màu viền khi focus */
   outline: none; /* Bỏ viền outline mặc định */
@@ -202,7 +215,7 @@ ion-icon {
 .button {
   display: flex;
   justify-content: flex-start; 
-  margin: 25px 10px;
+  margin: 30px 10px;
 }
 .button input {
   padding: 10px 30px; /* Kích thước nhỏ hơn của nút */

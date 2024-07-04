@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f3ef;
+  overflow-y: hidden;
 }
 
 /* Thanh sidebar với gradient và bóng đổ */
@@ -154,9 +155,9 @@ ion-icon {
 .body1 {
   display: flex;
   justify-content: center; /* Đẩy khung về phía bên phải */
-  margin: 25px;
+  margin: 80px;
   height: 80vh;
-  margin-left: 280px;
+  margin-left: 362px;
   align-items: center; /* Căn giữa khung theo chiều dọc */
 }
 .wrapper {

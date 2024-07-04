@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f3ef;
+  overflow-x: hidden;
 }
 
 /* Thanh sidebar với gradient và bóng đổ */
@@ -155,41 +156,42 @@ ion-icon {
 .main {
   position: absolute;
   top: 101px; /* Adjusted to be below the navbar and line */
-  width: calc(95% - 280px);
+  width: calc(100% - 280px);
   left: 280px;
   min-height: calc(100vh - 10px);
 }
 
 .cards {
   margin-left: 25px;
-  width: 100%;
+  width: 96%;
   padding-top: 4px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 45px;
-  
 }
 
 .card {
-  padding: 20px;
+  padding: 21px;
   display: flex;
   height: 80px;
   align-items: center;
   justify-content: space-between;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 5px 8px 0 rgba(79, 92, 17, 0.346);
+  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.2);
 
 }
 
 .card-content h3 {
-  color: #141E0C;
+  color: #476730;
   text-align: center;
+  font-weight: 790;
+  font-size: 19px;
 }
 
 .card-content p {
-  font-size: 30px;
-  color:#a5d281;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .card-name {
@@ -199,7 +201,7 @@ ion-icon {
 
 .icon-box1 {
   font-size: 35px;
-  color: rgb(108, 117, 167);
+  color: #466431;
 }
 
 /* Biểu đồ */
@@ -207,16 +209,17 @@ ion-icon {
   display: flex;
   justify-content: space-between; /* To create space between the charts */
   align-items: flex-start; /* Align the charts at the top */
-  width: 100%;
-  padding: 22px;
+  width: 99%;
+  padding: 9px;
   padding-top: 4px;
+
 }
 
 .chartLeft {
   width: 60%;
   background: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 5px 8px 0 rgba(79, 92, 17, 0.346);
+  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.2);
   margin: 0 10px; /* Add some margin between the charts */
   padding: 20px;
   padding-top: 80px;
@@ -227,9 +230,11 @@ ion-icon {
   width: 40%;
   background: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 5px 8px 0 rgba(79, 92, 17, 0.346);
+  box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.2);
   margin: 0 10px; /* Add some margin between the charts */
-  padding: 40px;
+  padding: 20px;
+  padding-top: 80px;
+  height: 361px;
 }
 
 /* Specific styling for chart containers */

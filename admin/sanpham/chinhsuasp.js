@@ -66,6 +66,11 @@ async function fetchAndUpdateProductDetails(productId) {
 
             document.getElementById('Description').value = product.Description || '';
             console.log('Description:', document.getElementById('Description').value);
+
+            const productImageElement = document.getElementById('productImage');
+            console.log("Link:", productImageElement);
+            const imagePath = product.image.replace(/\\/g, '/'); // Thay thế dấu gạch chéo ngược bằng dấu gạch chéo
+            productImageElement.src = `http://localhost:8080/${imagePath}`;
         }
     } catch (error) {
         console.error('Error fetching data from API:', error);
@@ -73,28 +78,28 @@ async function fetchAndUpdateProductDetails(productId) {
     }
 }
 
+
 // Function to handle product form submission
 async function handleProductFormSubmit(event) {
     event.preventDefault();
 
     const productId = new URLSearchParams(window.location.search).get('id');
-    const updatedProduct = {
-        Name: document.getElementById('Name').value,
-        CategoryID: document.getElementById('CategoryID').value,
-        Brand: document.getElementById('Brand').value,
-        Price: document.getElementById('Price').value,
-        Inventory: document.getElementById('Inventory').value,
-        Volume: document.getElementById('Volume').value,
-        Description: document.getElementById('Description').value
-    };
+    const formData = new FormData();
+    formData.append('image', document.getElementById('image').files[0]); // Chỉ lấy file đầu tiên nếu người dùng chọn nhiều tệp
+
+    // Các trường thông tin khác
+    formData.append('Name', document.getElementById('Name').value);
+    formData.append('CategoryID', document.getElementById('CategoryID').value);
+    formData.append('Brand', document.getElementById('Brand').value);
+    formData.append('Price', document.getElementById('Price').value);
+    formData.append('Inventory', document.getElementById('Inventory').value);
+    formData.append('Volume', document.getElementById('Volume').value);
+    formData.append('Description', document.getElementById('Description').value);
 
     try {
         const response = await fetch(`http://localhost:8080/api/product/updateProduct/${productId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedProduct)
+            body: formData
         });
 
         if (!response.ok) {
@@ -103,13 +108,18 @@ async function handleProductFormSubmit(event) {
 
         const data = await response.json();
         alert('Product updated successfully!');
-        window.location.href = '../sanpham/sp.html'; // Thay đổi thành URL chuyển hướng của bạn
+        window.location.href = '../sanpham/sp.html'; // Chuyển hướng sau khi cập nhật thành công
     } catch (error) {
         console.error('Error updating product:', error);
         alert('Failed to update product');
     }
 }
 
+function handleCancel() {
+    if (confirm('Bạn có chắc muốn hủy không?')) {
+        window.location.href = '../sanpham/sp.html';
+    }
+}
 // Event listener for DOM content loaded
 document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -120,4 +130,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     document.getElementById('myForm').addEventListener('submit', handleProductFormSubmit);
+    document.querySelector('.cancel').addEventListener('click', handleCancel);
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
 });

@@ -46,10 +46,9 @@
         <li class="submenu">
             <a href="#"><ion-icon name="cart-outline"></ion-icon> Bán hàng</a>
             <ul>
-                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý đơn hàng</a></li>
+                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý hóa đơn</a></li>
                 <li><a href="../order/detail.html"><ion-icon name="add-circle-outline"></ion-icon> Chi tiết đơn hàng</a></li>
-                <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
-                <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
+                <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>  
                 <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
                 <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
             </ul>
@@ -65,8 +64,17 @@
         <li class="submenu">
             <a href="#"><ion-icon name="person-circle-outline"></ion-icon> Tài khoản</a>
             <ul>
-                <li><a href="../Login/forgotpass.html"><ion-icon name="key-outline"></ion-icon> Đổi mật khẩu</a></li>
-                <li><a href="../Login/login.html"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                
+<li><a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                <script>
+                  function logout() {
+                      // Xóa token từ sessionStorage
+                      sessionStorage.removeItem('accessToken');
+                      
+                      // Chuyển hướng người dùng về trang đăng nhập
+                      window.location.href = '../Login/login.html';
+                  }
+              </script>
             </ul>
         </li>
     </ul>
@@ -74,7 +82,7 @@
 
 <div class="navbar">
     <div class="navbar__info">
-      <p>Admin Thùy Trang</p>
+      <p>Hóa đơn</p>
     </div>
     <div class="navbar__cta">
       <div class="navbar__hello">
@@ -117,17 +125,20 @@
           <label for="OrderDate">Ngày Kết Thúc</label>
           <input type="datetime-local" id="OrderDate" name="OrderDate" placeholder="" required>
         </div>
-        <label for="Gender" style="display:flexbox; padding-left: 10px; ">Giới Tính</label>
-        <input type="radio" name="Gender" id="Gender" value="Nam"> Nam
-        <input type="radio" name="Gender" id="Gender" value="Nữ"> Nữ
+      </div>
+      <div style="display: block; margin: 20px -2px;">
+        <label for="Gender" style="display:inline-block; padding-left: 10px; font-weight: bold;">Giới Tính</label>
+        <input type="radio" name="Gender" id="Gender" value="Nam" style="display: inline-block;"> Nam
+        <input type="radio" name="Gender" id="Gender" value="Nữ" style="display: inline-block;"> Nữ
       </div>
       <div class="middle-fields">
-        <h1>Giỏ hàng</h1>
+        <h3 style="margin-left: 8px">Giỏ hàng</h3>
         <div id="product-list">
           <!-- Product entry forms will be added here dynamically -->
         </div>
         <button type="button" onclick="addProduct()" class="add-product-btn">Thêm sản phẩm +</button><br>
         <button type="button" onclick="submitOrder()" class="submit-btn">Xác nhận đơn hàng</button>
+        <button type="button" onclick="cancelEdit()" class="cancel-btn">Hủy</button>
       </div>
     </form>
   </div>
@@ -147,15 +158,38 @@
     display: inline-block;
     margin-bottom: 20px;
     padding: 10px 20px;
-    background-color: #5bc0de;
-    color: white;
+    background-color: #eae9e0;
+    color: #476730 ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .add-product-btn:hover {
+    background-color: #a8acad;
+  }
+
+  .submit-btn{
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    color: #eae9e0;
+    background-color: #476730 ;
     border: none;
     border-radius: 4px;
     cursor: pointer;
   }
 
-  .add-product-btn:hover {
-    background-color: #46b8da;
+  .cancel-btn{
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #eae9e0;
+    color: #476730 ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }
 
   .product-form {
@@ -194,6 +228,6 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="themdonhang.js"></script>
-
+<title>Tạo Đơn Hàng</title>
 </body>
 </html>

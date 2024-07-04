@@ -14,7 +14,7 @@ async function fetchAndUpdateVoucherDetails(voucherId) {
             document.getElementById('Name').value = voucher.Name || '';
             document.getElementById('Percent').value = voucher.Percent || '';
             document.getElementById('Describes').value = voucher.Describes || '';
-            console.log('Describes:', document.getElementById('Describes').value);
+            
             // Xử lý EXDate để đảm bảo đúng định dạng yyyy-MM-ddThh:mm
             if (voucher.EXDate) {
                 const exDate = new Date(voucher.EXDate);
@@ -33,7 +33,6 @@ async function fetchAndUpdateVoucherDetails(voucherId) {
     }
 }
 
-// Function to handle voucher form submission
 async function handleVoucherFormSubmit(event) {
     event.preventDefault();
 
@@ -46,6 +45,7 @@ async function handleVoucherFormSubmit(event) {
         Mincost: document.getElementById('Mincost').value,
         Maxcost: document.getElementById('Maxcost').value
     };
+    console.log(updatedVoucher);
 
     try {
         const response = await fetch(`http://localhost:8080/api/voucher/updateVoucher/${voucherId}`, {
@@ -56,11 +56,13 @@ async function handleVoucherFormSubmit(event) {
             body: JSON.stringify(updatedVoucher)
         });
 
+
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
         const data = await response.json();
+        console.log(data);
         alert('Voucher updated successfully!');
         window.location.href = '../magiamgia/mgg.html'; // Change to your redirect URL
     } catch (error) {
@@ -69,7 +71,12 @@ async function handleVoucherFormSubmit(event) {
     }
 }
 
-// Event listener for DOM content loaded
+function handleCancel() {
+    if (confirm('Bạn có chắc muốn hủy không?')) {
+        window.location.href = '../magiamgia/mgg.html';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const voucherId = urlParams.get('id');
@@ -79,4 +86,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     document.getElementById('voucherForm').addEventListener('submit', handleVoucherFormSubmit);
+    document.querySelector('.cancel').addEventListener('click', handleCancel);
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
 });

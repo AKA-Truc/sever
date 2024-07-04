@@ -90,7 +90,7 @@ async function createCustomerAndOrder() {
 
       // Bước 2: Tạo đơn hàng
       const formDataOrder = {
-          CustomerID: customerData.customerId, // Giả sử API của bạn trả về customerId
+          CustomerID: customerData.customerID, // Giả sử API của bạn trả về customerId
           OrderDate: OrderDate,
           orderDetails: products,
       };
@@ -121,7 +121,12 @@ async function createCustomerAndOrder() {
       alert('Đã xảy ra lỗi khi tạo đơn hàng. Vui lòng thử lại sau!');
   }
 }
-
+function cancelEdit() {
+    if (confirm('Bạn có chắc chắn muốn hủy?')) {
+        const orderId = new URLSearchParams(window.location.search).get('id');
+        window.location.href = `../menu/menu.html`;
+    }
+}
 // Function to submit the order
 function submitOrder() {
   createCustomerAndOrder(); // Call createCustomerAndOrder function when submit button is clicked
@@ -130,4 +135,12 @@ function submitOrder() {
 // Fetch products on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', async () => {
   await fetchAndPopulateProducts();
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
 });

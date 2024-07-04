@@ -46,10 +46,10 @@
         <li class="submenu">
             <a href="#"><ion-icon name="cart-outline"></ion-icon> Bán hàng</a>
             <ul>
-                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý đơn hàng</a></li>
+                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý hóa đơn</a></li>
                 <li><a href="../order/detail.html"><ion-icon name="add-circle-outline"></ion-icon> Chi tiết đơn hàng</a></li>
                 <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
-                <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
+                
                 <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
                 <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
             </ul>
@@ -65,37 +65,146 @@
         <li class="submenu">
             <a href="#"><ion-icon name="person-circle-outline"></ion-icon> Tài khoản</a>
             <ul>
-                <li><a href="../Login/forgotpass.html"><ion-icon name="key-outline"></ion-icon> Đổi mật khẩu</a></li>
-                <li><a href="../Login/login.html"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                
+                <li><a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                <script>
+                  function logout() {
+                      // Xóa token từ sessionStorage
+                      sessionStorage.removeItem('accessToken');
+                      
+                      // Chuyển hướng người dùng về trang đăng nhập
+                      window.location.href = '../Login/login.html';
+                  }
+              </script>
             </ul>
         </li>
     </ul>
 </div>
 
 <div class="navbar">
-    <div class="navbar__info">
-      <p>Admin Thùy Trang</p>
-    </div>
-    <div class="navbar__cta">
+  <div class="navbar__info">
+      <p id="username">Admin Thùy Trang</p>
+  </div>
+  <div class="navbar__cta">
       <div class="navbar__hello">
-        <ion-icon name="notifications-outline"></ion-icon> 5 Notifications
+          <ion-icon name="notifications-outline"></ion-icon> 5 Notifications
       </div>
       <div class="navbar__hello">
-        <ion-icon name="settings-outline"></ion-icon> Settings
+          <ion-icon name="settings-outline"></ion-icon> Settings
       </div>
       <div class="navbar__background-icon">
-        <img src="../assets/img/account.svg" alt="" />
-        </div>
-      <div class="navbar__hello">
-        <p>Xin chào, Admin</p>
+          <img src="../assets/img/account.svg" alt="" />
       </div>
-    </div>
-  </div>
-  <div class="navbar-separator"></div>
-  <div class="main">
-    <!-- Content goes here -->
+      <div class="navbar__hello">
+          <p id="greeting">Xin chào, Admin</p>
+      </div>
   </div>
 </div>
+<div class="navbar-separator"></div>
+<div class="main">
+  <!-- Content goes here -->
+</div>
+
+
+<!-- main content -->
+<div class="main-content">
+    <div class="customer-management">
+      
+      <!-- Ô tìm kiếm -->
+      <input type="text" placeholder="Nhập họ tên để tìm kiếm..." class="search-bar">
+      <h2>Đơn hàng cần xác nhận </h2>
+      <!-- Bảng danh sách khách hàng -->
+      <div class="table-wrapper">
+        <table id="requests-table">
+          <thead>
+              <tr>
+                  <th class="center-heading">STT</th>
+                  <th class="center-heading">Mã Đơn Hàng</th>
+                  <th class="center-heading">Khách hàng</th>
+                  <th class="center-heading">Ngày đặt hàng</th>
+                  <th class="center-heading">Trạng thái</th>
+                  <th class="center-heading">Thao tác</th>
+              </tr>
+          </thead>
+          <tbody id="order-List">
+              <!-- Các dòng đơn hàng sẽ được thêm bởi JavaScript -->
+          </tbody>
+        </table>
+      
+        <!-- Popup xác nhận xóa khách hàng -->
+        <div id="popup" class="popup-overlay">
+            <div class="popup-content">
+                <p>Bạn có chắc chắn muốn xóa đơn hàng này?</p>
+                <button id="popupOk" class="okbtn">Ok</button>
+                <button id="popupCancel" class="cancelbtn">Hủy</button>
+            </div>
+        </div>
+      </div>
+
+      <style>
+        /* Notification (popup) */
+        .popup {
+            display: none; /* Ẩn ban đầu */
+            position: fixed; /* Giữ nguyên ở vị trí */
+            z-index: 1000; /* Hiển thị lớn hơn */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0, 0, 0, 0.4); /* Đen với độ trong suốt */
+        }
+
+        /* Nội dung của Popup */
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% từ phía trên và căn giữa */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; /* Chiều rộng */
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        /* Nút OK */
+        .okbtn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .okbtn:hover {
+            background-color: #45a049;
+        }
+
+        /* Nút Hủy */
+        .cancelbtn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cancelbtn:hover {
+            background-color: #da190b;
+        }
+    </style>
+      <!-- Thêm đoạn mã JavaScript trước thẻ đóng body -->
+      <script src="menu.js"></script>
+    </div>
+</div>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
+
 
 <html lang="en">
 <head>
@@ -104,82 +213,5 @@
     <title>Trang chủ</title>
     <link rel="stylesheet" href="menu.css">
 </head>
-<div class="main-content">
-  <div class="customer-management">
-    <h1>Đơn hàng cần xác nhận </h1>
-    <div class="table-wrapper">
-      <table id="requests-table">
-        <thead>
-          <tr>
-              <th class="center-heading">STT</th>
-              <th class="center-heading">Mã Đơn Hàng</th>
-              <th class="center-heading">Khách hàng</th>
-              <th class="center-heading">Ngày đặt hàng</th>
-              <th class="center-heading">Trạng thái</th>
-              <th class="center-heading">Thao tác</th>
-          </tr>
-      </thead>
-          <tbody id = "order-List">
-          </tbody>
-      </table>
-
-      <!-- Popup Modal -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <p>Đơn hàng đã xác nhận</p>
-            <button id="popupOk" class="okbtn">OK</button>
-        </div>
-    </div>
-
-    <style>
-            /* Notification (popup) */
-      .popup {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1000; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-      }
-
-      /* Popup Content */
-      .popup-content {
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 300px; /* Width */
-        text-align: center;
-        border-radius: 10px;
-      }
-
-      /* OK button */
-      .okbtn {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-        font-size: 16px;
-      }
-
-      .okbtn:hover {
-        background-color: #45a049;
-      }
-
-    </style>
-
-    <script src="menu.js"></script>
-</div>
-  </div>
-  <
-</html>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 </body>
 </html>

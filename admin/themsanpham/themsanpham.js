@@ -21,6 +21,7 @@ async function submitForm(event) {
     const result = await response.json();
     console.log('Server response:', result);
     alert('Đã thêm sản phẩm.');
+    window.location.href = "../sanpham/sp.html";
   } catch (error) {
     console.error('Error saving data:', error);
     alert('Đã xảy ra lỗi khi thêm sản phẩm: ' + error.message);
@@ -45,8 +46,7 @@ function cancelForm(event) {
     });
     // Làm trống danh sách các hàng đã thêm
     addedRows = [];
-
-    alert('Form đã được hủy.');
+    window.location.href = "../sanpham/sp.html";
   }
 }
 
@@ -81,5 +81,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
   } catch (error) {
       console.error('Error fetching roles:', error);
+  }
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+  const accessToken = sessionStorage.getItem('accessToken');
+  
+  if (!accessToken) {
+      window.location.href = '../Login/login.html';
   }
 });

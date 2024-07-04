@@ -62,6 +62,14 @@ async function handleCustomerFormSubmit(event) {
     }
 }
 
+// Function to handle form cancellation
+function cancelForm(event) {
+    event.preventDefault(); // Prevent the default form cancellation action
+    if (confirm('Bạn có chắc muốn hủy không?')) {
+        window.location.href = '../quanly/QLKH.html'; // Change to your desired redirect URL
+    }
+}
+
 // Event listener for DOM content loaded
 document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -72,4 +80,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     document.getElementById('customerForm').addEventListener('submit', handleCustomerFormSubmit);
+
+    // Event listener for the "Hủy" button
+    document.getElementById('cancelButton').addEventListener('click', cancelForm);
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
 });

@@ -46,10 +46,10 @@
         <li class="submenu">
             <a href="#"><ion-icon name="cart-outline"></ion-icon> Bán hàng</a>
             <ul>
-                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý đơn hàng</a></li>
+                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý hóa đơn</a></li>
                 <li><a href="../order/detail.html"><ion-icon name="add-circle-outline"></ion-icon> Chi tiết đơn hàng</a></li>
                 <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
-                <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
+                
                 <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
                 <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
             </ul>
@@ -65,8 +65,17 @@
         <li class="submenu">
             <a href="#"><ion-icon name="person-circle-outline"></ion-icon> Tài khoản</a>
             <ul>
-                <li><a href="../Login/forgotpass.html"><ion-icon name="key-outline"></ion-icon> Đổi mật khẩu</a></li>
-                <li><a href="../Login/login.html"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                
+                <li><a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                <script>
+                  function logout() {
+                      // Xóa token từ sessionStorage
+                      sessionStorage.removeItem('accessToken');
+                      
+                      // Chuyển hướng người dùng về trang đăng nhập
+                      window.location.href = '../Login/login.html';
+                  }
+              </script>
             </ul>
         </li>
     </ul>
@@ -106,12 +115,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thêm Sản Phẩm Mới</title>
+  <title>Chỉnh Sửa Thông Tin Sản Phẩm</title>
   <link rel="stylesheet" href="chinhsuasp.css">
 </head>
 <body>
   <div class="body1">
-    <div class="wrapper">
+    <div class="wrapper" >
+      <!-- ảnh -->
+      <div class="image-form" style="margin-left: -280px; margin-bottom: -303px; ">
+        <form id="imageForm">
+            <div class="field input">
+                <label for="image">Ảnh sản phẩm</label>
+                <img id="productImage" src="" alt="Product Image" style="max-width: 250px; max-height: 250px; ">
+            </div>
+        </form>
+      </div>  
+      <!-- ảnh -->
       <form id="myForm" enctype="multipart/form-data">
         <div class="top-fields">
           <div class="field input">
@@ -149,7 +168,7 @@
             <input type="number" id="Volume" name="Volume" placeholder="Nhập Dung Tích" required>
           </div>
         </div>
-  
+
         <div class="field input">
           <label for="image">Ảnh sản phẩm</label>
           <input type="file" id="image" name="image">
@@ -161,12 +180,13 @@
         </div>
   
         <div class="button-group">
-          <input type="submit" value="Thêm Sản Phẩm" class="save"> 
+          <input type="submit" value="Chỉnh Sửa Sản Phẩm" class="save"> 
           <input type="button" value="Hủy" class="cancel">
         </div> 
       </form>
       <script src = "chinhsuasp.js"></script>
     </div>
+    
   </div>
   </body>
   </html>

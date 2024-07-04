@@ -21,6 +21,7 @@ async function submitForm(event) {
     const result = await response.json();
     console.log('Server response:', result);
     alert('Khách hàng đã được thêm thành công.');
+    window.location.href = '../quanly/QLKH.html';
   } catch (error) {
     console.error('Error saving data:', error);
     alert('Đã xảy ra lỗi khi thêm khách hàng: ' + error.message);
@@ -31,23 +32,20 @@ async function submitForm(event) {
 function cancelForm(event) {
   event.preventDefault(); // Prevent the default form cancellation action
   if (confirm('Bạn có chắc muốn hủy không?')) {
-    const formElements = document.querySelectorAll('.wrapper input[type="text"], .wrapper input[type="number"]');
-    formElements.forEach(element => {
-      element.value = '';
-    });
-
-    // Clear added rows if any
-    addedRows.forEach(row => {
-      row.remove();
-    });
-    addedRows = [];
-
-    alert('Form đã được hủy.');
+    window.location.href = '../quanly/QLKH.html'; // Change to your desired redirect URL
   }
 }
 
 // Attach event listeners to the buttons once the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('customerForm').addEventListener('submit', submitForm);
-  document.querySelector('.cancel').addEventListener('click', cancelForm);
+  document.getElementById('cancelButton').addEventListener('click', cancelForm);
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+  const accessToken = sessionStorage.getItem('accessToken');
+  
+  if (!accessToken) {
+      window.location.href = '../Login/login.html';
+  }
 });

@@ -23,6 +23,7 @@ async function submitForm(event) {
     const result = await response.json();
     console.log('Server response:', result);
     alert('Mã giảm giá đã được thêm.');
+    window.location.href = '../magiamgia/mgg.html';
   } catch (error) {
     console.error('Error saving data:', error);
     alert('Đã xảy ra lỗi khi thêm mã giảm giá: ' + error.message);
@@ -47,7 +48,7 @@ function cancelForm(event) {
     // Xóa danh sách các hàng đã thêm
     addedRows = [];
 
-    alert('Đã hủy form.');
+    window.location.href = '../magiamgia/mgg.html';
   }
 }
 

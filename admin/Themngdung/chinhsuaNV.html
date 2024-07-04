@@ -47,10 +47,10 @@
         <li class="submenu">
             <a href="#"><ion-icon name="cart-outline"></ion-icon> Bán hàng</a>
             <ul>
-                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý đơn hàng</a></li>
+                <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý hóa đơn</a></li>
                 <li><a href="../order/detail.html"><ion-icon name="add-circle-outline"></ion-icon> Chi tiết đơn hàng</a></li>
                 <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
-                <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
+                
                 <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
                 <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
             </ul>
@@ -66,8 +66,17 @@
         <li class="submenu">
             <a href="#"><ion-icon name="person-circle-outline"></ion-icon> Tài khoản</a>
             <ul>
-                <li><a href="../Login/forgotpass.html"><ion-icon name="key-outline"></ion-icon> Đổi mật khẩu</a></li>
-                <li><a href="../Login/login.html"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                
+<li><a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                <script>
+                  function logout() {
+                      // Xóa token từ sessionStorage
+                      sessionStorage.removeItem('accessToken');
+                      
+                      // Chuyển hướng người dùng về trang đăng nhập
+                      window.location.href = '../Login/login.html';
+                  }
+              </script>
             </ul>
         </li>
     </ul>
@@ -125,17 +134,19 @@
           <label for="Salary">Lương</label>
           <input type="text" id="Salary" name="Salary" placeholder="Nhập mức lương" required>
         </div>
-        <div class="field input">
-          <label for="Role">Chức Vụ</label>
-          <select id="Role" name="Role">
+        <div class="field input" style="display:block; margin-bottom: 20px">
+          <label for="Role" style="display:inline-block;">Chức Vụ</label>
+          <select id="Role" name="Role" style="display:inline-block; margin-left: 2%;">
             <option value="Nhân Viên Thu Ngân">Nhân Viên Thu Ngân</option>
             <option value="Nhân Viên Tiếp Thị">Nhân Viên Tiếp Thị</option>
+            <option value="Quản Lý Cửa Hàng">Quản Lý Cửa Hàng</option>
           </select>
         </div>
-        <div class="field input">
-          <label for="GenderMale" style="display:flexbox; padding-left: 10px;">Giới Tính</label>
+        <div class="container">
+          <label style="font-weight:bold; margin-left:10px;">Giới tính </label>
+          <label for="GenderMale" class="radio-inline"></label>
             <input type="radio" name="Gender" id="GenderMale" value="Nam"> Nam
-          <label for="GenderFemale"> </label> 
+          <label for="GenderFemale" class="radio-inline"></label> 
             <input type="radio" name="Gender" id="GenderFemale" value="Nữ"> Nữ
         </div>
         <div class="button">
@@ -159,7 +170,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chăm Sóc Khách Hàng</title>
+    <title>Chỉnh Sửa Thông Tin Nhân Viên</title>
     <link rel="stylesheet" href="chinhsuaNV.css">
 </head>
 </html>

@@ -169,9 +169,10 @@ option {
 .body1 {
   display: flex;
   justify-content:flex-start; /* Đẩy khung về phía bên phải */
-  margin: 40px;
+  margin: 70px;
   height: 40vh;
   align-items: center; /* Căn giữa khung theo chiều dọc */
+  margin-left: 160px;
 }
 
 .wrapper {
@@ -179,7 +180,8 @@ option {
   max-width: 9000px;
   height: 315px;
   padding: 250px;
-  margin-left: 150px;
+  margin-left: 160px;
+  align-items: center; /* Căn giữa khung theo chiều dọc */
 }
 .form {
   display: flex;

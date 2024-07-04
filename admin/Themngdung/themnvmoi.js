@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Hiển thị thông báo thành công
             alert('Nhân viên đã được thêm thành công.');
+            window.location.href = '../quanly/QLNS.html'; // Change to the URL you want to redirect to after successful submission
         } catch (error) {
             console.error('Error saving data:', error);
             alert('Đã xảy ra lỗi khi thêm Nhân Viên: ' + error.message);
@@ -37,9 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (confirm('Bạn có chắc muốn hủy không?')) {
             form.reset(); // Xóa các giá trị nhập trong form
-
-            // Hiển thị thông báo form đã được hủy
-            alert('Form đã được hủy.');
+            window.location.href = '../quanly/QLNS.html'; // Change to the URL you want to redirect to after cancellation
         }
     });
+});
+//ràng buộc token
+document.addEventListener('DOMContentLoaded', function() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+        window.location.href = '../Login/login.html';
+    }
 });

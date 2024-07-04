@@ -46,10 +46,10 @@
             <li class="submenu">
                 <a href="#"><ion-icon name="cart-outline"></ion-icon> Bán hàng</a>
                 <ul>
-                    <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý đơn hàng</a></li>
+                    <li><a href="../order/order.html"><ion-icon name="clipboard-outline"></ion-icon> Quản lý hóa đơn</a></li>
                     <li><a href="../order/detail.html"><ion-icon name="add-circle-outline"></ion-icon> Chi tiết đơn hàng</a></li>
                     <li><a href="../order/chinhsuaorder.html"><ion-icon name="clipboard-outline"></ion-icon> Chỉnh sửa đơn hàng</a></li>
-                    <li><a href="../order/hoadon.html"><ion-icon name="today-outline"></ion-icon> Quản lý hóa đơn </a></li>
+                    
                     <li><a href="../order/bill.html"><ion-icon name="receipt-outline"></ion-icon> Hóa đơn</a></li>
                     <li><a href="../order/themdonhan.html"><ion-icon name="bag-add-outline"></ion-icon>Tạo đơn hàng</a></li>
                 </ul>
@@ -65,8 +65,17 @@
             <li class="submenu">
                 <a href="#"><ion-icon name="person-circle-outline"></ion-icon> Tài khoản</a>
                 <ul>
-                    <li><a href="../Login/forgotpass.html"><ion-icon name="key-outline"></ion-icon> Đổi mật khẩu</a></li>
-                    <li><a href="../Login/login.html"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                    
+    <li><a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Đăng xuất</a></li>
+                <script>
+                  function logout() {
+                      // Xóa token từ sessionStorage
+                      sessionStorage.removeItem('accessToken');
+                      
+                      // Chuyển hướng người dùng về trang đăng nhập
+                      window.location.href = '../Login/login.html';
+                  }
+              </script>
                 </ul>
             </li>
         </ul>
@@ -96,26 +105,30 @@
     <!-- Content goes here -->
   </div>
 </div>
+
+<!--  -->
 <main class="main-content">
     <section class="orders">
-        <div class="search-bar" style="width: 400px; margin-left:1070px; align-items: center;border-radius: 100px;">
-            <input type="text" placeholder="Tra cứu đơn hàng...">
+        <div class="search-bar" style="width: 400px; margin-left:995px; align-items: center;">
+            <input type="text" style="border-radius: 20px 20px;" placeholder="Tra cứu đơn hàng...">
         </div>
-      <table id="requests-table" style="width: 1200px; margin-left:290px; align-items: center;">
-          <thead>
-            <tr>
-                <th class="center-heading">STT</th>
-                <th class="center-heading">Mã Hóa Đơn</th>
-                <th class="center-heading">Khách hàng</th>
-                <th class="center-heading">Ngày đặt hàng</th>
-                <th class="center-heading">Mã Giảm Giá Đã Sử Dụng</th>
-                <th class="center-heading">Tổng Tiền</th>
-                <th class="center-heading">Thao tác</th>
-            </tr>
-        </thead>
-            <tbody id = "invoice-list">
-            </tbody>
-        </table>
+        <div class="table-wrapper">
+            <table id="requests-table">
+                <thead>
+                    <tr>
+                        <th class="center-heading">STT</th>
+                        <th class="center-heading">Mã Hóa Đơn</th>
+                        <th class="center-heading">Khách hàng</th>
+                        <th class="center-heading">Ngày đặt hàng</th>
+                        <th class="center-heading">Mã Giảm Giá Đã Sử Dụng</th>
+                        <th class="center-heading">Tổng Tiền</th>
+                        <th class="center-heading">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id = "invoice-list">
+                </tbody>
+            </table>
+        </div>
   </section>
   </main>
 
@@ -222,6 +235,6 @@ table th {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>order</title>
+    <title>Quản Lý Hóa Đơn</title>
     <link rel="stylesheet" href="order.css">
 </head>
